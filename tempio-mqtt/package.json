@@ -1,0 +1,20 @@
+{
+  "name": "tempio-mqtt",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "author": "Jesus Hernandez <jesusbeckan@gmail.com>",
+  "license": "MIT",
+  "keywords": [],
+  "dependencies": {
+    "aedes": "^0.46.0",
+    "pino": "^6.11.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7",
+    "pino-pretty": "^4.7.1"
+  }
+}
