@@ -1,20 +1,15 @@
 {
   "name": "tempio-web",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "start": "nodemon index.js"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
   },
-  "author": "Jesus Hernandez <jesusbeckan@gmail.com>",
-  "license": "MIT",
-  "keywords": [],
   "dependencies": {
-    "tempio-agent": "file:../tempio-agent",
-    "pino": "^6.11.3"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.7",
-    "pino-pretty": "^4.7.1"
+    "next": "10.2.2",
+    "react": "17.0.2",
+    "react-dom": "17.0.2"
   }
 }

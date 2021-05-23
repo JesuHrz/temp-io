@@ -1,35 +1,48 @@
 'use strict'
 
+const express = require('express')
 const aedes = require('aedes')()
-const httpServer = require('net').createServer(aedes.handle)
+const ws = require('websocket-stream')
+const MQTTServer = require('net').createServer(aedes.handle)
+
+const app = express()
+const HTTPServer = require('http').createServer(app)
+
+ws.createServer({ server: HTTPServer }, aedes.handle)
 
 const { logger, constants } = require('./utils')
 
 aedes.on('client', function (client) {
   const clientId = client ? client.id : client
-  const aedesId = aedes.id
-
-  logger.info(`Client Connected: ${clientId} - Aedes (Broker): ${aedesId}`)
+  logger.info(`Client Connected: ${clientId}`)
 })
 
 aedes.on('clientDisconnect', function (client) {
   const clientId = client ? client.id : client
-  const aedesId = aedes.id
-  logger.info(`Client Disconnected: ${clientId} - Aedes (Broker): ${aedesId}`)
+  logger.info(`Client Disconnected: ${clientId}`)
 })
 
 aedes.on('publish', async function (packet, client) {
   const clientId = client ? client.id : client
-  const aedesId = aedes.id
-  const { payload, topic } = packet
-  logger.info(`Client publish: ${clientId} - Aedes (Broker): ${aedesId}`)
-  logger.info(`Topic: ${topic} - Payload: ${payload.toString()}`)
+
+  switch (packet.topic) {
+    case '@agent/connected':
+    case '@agent/disconnected':
+      logger.info(`Client: ${clientId} - Payload: ${packet.payload}`)
+      break
+    case '@agent/message':
+      logger.info(`Client: ${clientId} - Payload: ${packet.payload}`)
+      break
+  }
 })
 
-httpServer.listen(constants.MQTT_PORT, function () {
+MQTTServer.listen(constants.MQTT_PORT, function () {
   logger.info(`MQTT Server listening on port: ${constants.MQTT_PORT}`)
-  // aedes.publish({ topic: 'aedes/hello', payload: "I'm broker " + aedes.id })
 })
+
+HTTPServer.listen(3000, function() {
+  logger.info('Server listening on port: 3000')
+});
 
 function handleFatalError (err) {
   logger.error(err.message)
