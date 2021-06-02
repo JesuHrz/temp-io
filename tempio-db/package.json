@@ -1,0 +1,23 @@
+{
+  "name": "tempio-db",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "setup": "node setup.js"
+  },
+  "author": "Jesus Hernandez <jesusbeckan@gmail.com>",
+  "license": "MIT",
+  "keywords": [],
+  "dependencies": {
+    "defaults": "^1.0.3",
+    "pg": "^8.6.0",
+    "pg-hstore": "^2.3.3",
+    "pino": "^6.11.3",
+    "sequelize": "^6.6.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7",
+    "pino-pretty": "^4.7.1"
+  }
+}
