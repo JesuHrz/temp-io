@@ -5,7 +5,6 @@ require('dotenv').config()
 const mqtt = require('mqtt')
 const os = require('os')
 const defaults = require('defaults')
-const EventEmitter = require('events')
 
 const { logger, getSerial, constants } = require('./utils')
 const sensor = require('./sensor')
@@ -22,9 +21,8 @@ const options = {
   }
 }
 
-class Agent extends EventEmitter {
+class Agent  {
   constructor (opts) {
-    super()
     this._options = defaults(opts, options)
     this._started = false
     this._timer = null
@@ -67,7 +65,6 @@ class Agent extends EventEmitter {
     if (this._started) {
       clearInterval(this._timer)
       this._started = false
-      // this.emit('disconnected', this._agentId)
       // this._client.end()
     }
   }
