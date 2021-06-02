@@ -15,7 +15,7 @@ const port = process.env.MQTT_PORT || constants.MQTT_PORT
 
 const options = {
   id: getSerial(),
-  interval: 500,
+  interval: 1000,
   hostname: os.hostname(),
   mqtt: {
     host: `mqtt://${host}:${port}`
@@ -37,13 +37,9 @@ class Agent extends EventEmitter {
       const opts = this._options
       this._client = mqtt.connect(opts.mqtt.host, { clientId: this._agentId  })
       this._started = true
-      
-      this._client.subscribe('@agent/message')
-      this._client.subscribe('@agent/connected')
-      this._client.subscribe('@agent/disconnected')
 
       this._client.on('connect', () => {
-        this.emit('connected', this._agentId)
+        // this.emit('connected', this._agentId)
 
         sensor(opts.interval, (err, data, timer) => {
           if (err) {
@@ -55,7 +51,6 @@ class Agent extends EventEmitter {
 
           const message = {
             id: this._agentId,
-            timestamp: new Date().getTime(),
             hostname: opts.hostname,
             ...data
           }
