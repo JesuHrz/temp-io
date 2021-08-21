@@ -8,8 +8,13 @@
     "start": "next start"
   },
   "dependencies": {
+    "axios": "^0.21.1",
+    "bootstrap": "^4.6.0",
     "next": "10.2.2",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-bootstrap": "^1.6.0",
+    "react-dom": "17.0.2",
+    "socket.io-client": "^4.1.2",
+    "websocket-stream": "^5.5.2"
   }
 }
