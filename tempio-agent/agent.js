@@ -14,7 +14,7 @@ const port = process.env.MQTT_PORT || constants.MQTT_PORT
 
 const options = {
   id: getSerial(),
-  interval: 1000,
+  interval: 1500,
   hostname: os.hostname(),
   mqtt: {
     host: `mqtt://${host}:${port}`
