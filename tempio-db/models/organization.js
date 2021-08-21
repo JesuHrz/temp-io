@@ -12,8 +12,20 @@ module.exports = function setupOrganizationModel(config) {
       allowNull: false,
       unique: true,
       validate: {
+        isUnique: async (name, done) => {
+          try {
+            const data = await Organization.findOne({ where: { name }})
+            if (data) {
+              done(new Error('Organization name is already in use'))
+            }
+
+            done()
+          } catch (error) {
+            done(error)
+          }
+        },
         notNull: {
-          msg: 'This field must not be empty',
+          msg: 'The name field must not be empty',
         }
       },
     },
@@ -33,13 +45,20 @@ module.exports = function setupOrganizationModel(config) {
       allowNull: false,
       validate: {
         notNull: {
-          msg: 'This field must not be empty'
+          msg: 'The password field must not be empty'
         }
       },
     },
   }, {
     sequelize,
     timestamps: true,
+    validate: {
+      bothCoordsOrNone() {
+        if ((this.latitude === null) !== (this.longitude === null)) {
+          throw new Error('Either both latitude and longitude, or neither!');
+        }
+      }
+    }
   })
 
   return Organization

@@ -35,14 +35,14 @@ module.exports = function setupMetric (MetricModel, AgentModel) {
     })
   }
 
-  async function create (agentId, organizationId, metric) {
+  async function create (agentId, metric) {
     const agent = await AgentModel.findOne({
       where: { agentId }
     })
 
     if (agent) {
-      Object.assign(metric, { agentId, organizationId })
-      const result = await MetricModel.create(metric)
+      const data = Object.assign(metric, { agentId })
+      const result = await MetricModel.create(data)
       return result.toJSON()
     }
   }

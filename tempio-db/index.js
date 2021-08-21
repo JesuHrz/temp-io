@@ -13,7 +13,7 @@ const {
 
 const setupAgent = require('./lib/agent')
 const setupMetric = require('./lib/metric')
-
+const setupOrganization = require('./lib/organization')
 
 module.exports = async function (config) {
   config = defaults(config, {})
@@ -24,6 +24,10 @@ module.exports = async function (config) {
   const EmployeeModel = setupEmployeeModel(config)
   const AgentModel = setupAgentModel(config)
   const MetricModel = setupMetricModel(config)
+
+  const Agent = setupAgent(AgentModel)
+  const Metric = setupMetric(MetricModel, AgentModel)
+  const Organization = setupOrganization(OrganizationModel)
 
   // A Organization has many Employees
   OrganizationModel.hasMany(EmployeeModel, { foreignKey: 'organizationId' })
@@ -74,11 +78,8 @@ module.exports = async function (config) {
     })
   }
 
-  const Agent = setupAgent(AgentModel)
-  const Metric = setupMetric(MetricModel, AgentModel)
-
   return {
-    OrganizationModel,
+    Organization,
     EmployeeModel,
     Agent,
     Metric
