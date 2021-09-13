@@ -1,6 +1,6 @@
 'use strict'
 
-const { DataTypes, Deferrable } = require('sequelize')
+const { DataTypes } = require('sequelize')
 
 const setupDatabase = require('../lib/db')
 
@@ -16,6 +16,7 @@ module.exports = function setupEmployeeModel(config) {
     identification: {
       type: DataTypes.INTEGER,
       primaryKey: true,
+      unique: true,
       allowNull: false,
       validate: {
         notNull: {

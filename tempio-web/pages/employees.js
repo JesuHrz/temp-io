@@ -11,7 +11,7 @@ import { writeHasNotificationsAtom } from 'atoms'
 
 import styles from '../styles/Home.module.css'
 
-function Home ({ organization }) {
+function Employees ({ organization }) {
   const [_, setHasNotifications] = useAtom(writeHasNotificationsAtom)
 
   useSocket(organization.id, {
@@ -49,7 +49,7 @@ function Home ({ organization }) {
   )
 }
 
-export default Home
+export default Employees
 
 export const getServerSideProps = withSession(async function ({ req, res }) {
   const token = req.session.get('token')

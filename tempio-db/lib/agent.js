@@ -1,11 +1,30 @@
 'use strict'
 
 module.exports = function setupAgent (AgentModel) {
+  function create ({ name, agentId, organizationId}) {
+    return AgentModel.create({
+      name,
+      agentId,
+      organizationId,
+      status: 0
+    })
+  }
+  
+  function deleteById (agentId) {
+    return AgentModel.destroy({
+      where: {
+        agentId
+      },
+      raw: true
+    })
+  }
+
   async function updateById (agent) {
     const cond = {
       where: {
         agentId: agent.agentId
-      }
+      },
+      raw: true
     }
 
     const existingAgent = await AgentModel.findOne(cond)
@@ -40,6 +59,8 @@ module.exports = function setupAgent (AgentModel) {
   }
 
   return {
+    create,
+    deleteById,
     updateById,
     findById,
     findAll,

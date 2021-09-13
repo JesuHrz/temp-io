@@ -25,6 +25,12 @@
   padding: 35px 20px;
 }
 
+.layout__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .layout__title {
   margin: 0;
   color: rgb(0, 73, 97);

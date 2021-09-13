@@ -1,21 +1,22 @@
+import { io } from "socket.io-client";
 import { useEffect, useState } from 'react'
-import io from 'socket.io-client'
 
-function useSocket ({ url, id }) {
+function useSocket (id, options = {}) {
+  const clientId = `organization:${id}`
   const [socket, setSocket] = useState(null)
 
   useEffect(() => {
-    const socketIo = io(url, {
+    const socketClient = io('http://localhost:3001', {
       query: {
-        id
+        clientId
       }
     })
 
-    setSocket(socketIo)
+    socketClient.onAny((event, data) => {
+      options?.onMessage(event, data)
+    })
 
-    return () => {
-      socketIo.disconnect()
-    }
+    setSocket(socketClient)
   }, [])
 
   return socket
