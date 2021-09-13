@@ -1,0 +1,32 @@
+.signin-layout {
+  display: flex;
+  margin: auto;
+  min-height: 100vh;
+  max-width: 1000px;
+  width: 100%;
+}
+
+.signin-layout__container {
+  background-color: #ffffff;
+  border-radius: 20px;
+  display: flex;
+  margin: auto;
+  min-height: 550px;
+  max-height: 550px;
+  width: 100%;
+}
+
+.signin-layout__content {
+  display: flex;
+  flex-basis: 55%;
+}
+
+.signin-layout__poster {
+  position: relative;
+  flex-basis: 45%;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 40px;
+  border-bottom-left-radius: 40px;
+  border-bottom-right-radius: 20px;
+  opacity: 0.98;
+}

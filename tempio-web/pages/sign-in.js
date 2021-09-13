@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -12,58 +12,53 @@ import SignInLayout from 'components/SiginInLayout'
 import styles from 'styles/SignIn.module.css'
 
 const DOMAIN = process.env.NEXT_PUBLIC_DOMAIN
-const API_URL = `${DOMAIN}/api`
+const API_URL = `${DOMAIN}/api/auth`
 
-export default function SignUp () {
+export default function SignIn () {
   const [loading, setLoading] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('')
   const router = useRouter()
-  const organization = useInputValue('')
   const email = useInputValue('')
   const password = useInputValue('')
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-
-    const url = `${API_URL}/sign-up`
     const data = {
-      organization: organization.value,
       email: email.value,
       password: password.value
     }
 
     try {
       setLoading(true)
-      await axios.post(url, data)
-      setLoading(false)
+      await axios.post(API_URL, data)
       router.push('/')
     } catch (error) {
       setLoading(false)
       // TODO: Show the error message correctly
-      console.error(error.response)
+      const { response } = error
+      if (response && response.status === 401) {
+        const message = response.data.error
+        setErrorMessage(message)
+      }
+      console.error(error)
     }
   }
 
   return (
     <>
       <Head>
-        <title>Registrate | TempIO</title>
+        <title>Inicio Sesión | TempIO</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <SignInLayout
+        title='Inicio Sesión'
         imageSrc='/poster.jpeg'
-        imageAlt='Registrate Poster'
+        imageAlt='Inicio Sesión Poster'
       >
         <form className={styles['signup__form']} onSubmit={handleSubmit}>
-          <h1 className={styles['signup__title']}>Registrar</h1>
-          <p className={styles['signup__subtitle']}>Por favor, registrate para continuar</p>
+          <h1 className={styles['signup__title']}>Iniciar Sesión</h1>
+          <p className={styles['signup__subtitle']}>Por favor, inicia sesíon para continuar</p>
           <div className={styles['signup__content']}>
-            <input
-              className={styles['signup__input']}
-              type='text'
-              required
-              placeholder='Nombre de la organizacion'
-              {...organization}
-            />
             <input
               className={styles['signup__input']}
               type='text'
@@ -79,15 +74,20 @@ export default function SignUp () {
               {...password}
             />
             <input
-              className={styles['signup__submit']}
               disabled={loading}
+              className={styles['signup__submit']}
               type='submit'
-              value='Registrar'
+              value='Acceder'
             />
+            {
+              errorMessage && (
+                <span className={styles['signup__error']}>{errorMessage}</span>
+              )
+            }
             <span className={styles['signup__link']}>
-              Ya tienes una cuenta? {' '}
-              <Link href='/sign-in'>
-                <a>Iniciar sesión</a>
+              Aun no tienes una cuenta? {' '}
+              <Link href='/sign-up'>
+                <a>Registrate ya!</a>
               </Link>
             </span>
           </div>

@@ -1,0 +1,34 @@
+.menu {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.menu__content {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.menu__item a {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+  padding: 10px;
+}
+
+.menu__item span {
+  font-size: 34px;
+  color: rgb(185, 195, 212);
+}
+
+.menu__item:hover {
+  background-color: rgba(0, 73, 97, 0.2);
+  border-radius: 5px;
+}
+
+.menu__item:hover span {
+  color: rgb(0, 73, 97);
+}
+
