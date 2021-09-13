@@ -1,6 +1,6 @@
 'use strict'
 
-const { DataTypes, Deferrable } = require('sequelize')
+const { DataTypes, Deferrable, NOW } = require('sequelize')
 
 const setupDatabase = require('../lib/db')
 
@@ -47,9 +47,18 @@ module.exports = function setupMetricModel(config) {
         }
       }
     },
+    createdAt: {
+      type: DataTypes.DATEONLY,
+      defaultValue: NOW,
+      allowNull: false
+    },
+    updatedAt: {
+      type: DataTypes.DATEONLY,
+      defaultValue: NOW,
+      allowNull: true
+    }
   }, {
     sequelize,
-    timestamps: true
   })
 
   return Metric

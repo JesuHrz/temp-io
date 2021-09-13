@@ -52,13 +52,6 @@ module.exports = function setupOrganizationModel(config) {
   }, {
     sequelize,
     timestamps: true,
-    validate: {
-      bothCoordsOrNone() {
-        if ((this.latitude === null) !== (this.longitude === null)) {
-          throw new Error('Either both latitude and longitude, or neither!');
-        }
-      }
-    }
   })
 
   return Organization

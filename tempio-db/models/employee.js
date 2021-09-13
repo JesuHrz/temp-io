@@ -1,6 +1,6 @@
 'use strict'
 
-const { DataTypes, Deferrable } = require('sequelize')
+const { DataTypes } = require('sequelize')
 
 const setupDatabase = require('../lib/db')
 
@@ -14,8 +14,9 @@ module.exports = function setupEmployeeModel(config) {
       unique: true
     },
     identification: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BIGINT,
       primaryKey: true,
+      unique: true,
       allowNull: false,
       validate: {
         notNull: {
@@ -33,10 +34,6 @@ module.exports = function setupEmployeeModel(config) {
       validate: {
         notNull: {
           msg: 'The name field must not be empty',
-        },
-        isAlpha: {
-          args: true,
-          msg: 'The name field must be alpha',
         }
       },
     },
@@ -46,10 +43,6 @@ module.exports = function setupEmployeeModel(config) {
       validate: {
         notNull: {
           msg: 'The lastName field must not be empty',
-        },
-        isAlpha: {
-          args: true,
-          msg: 'The lastName field must be alpha',
         }
       },
     },
@@ -87,6 +80,11 @@ module.exports = function setupEmployeeModel(config) {
           msg: 'The cardId field must be alphanumeric'
         }
       }
+    },
+    archived: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+      defaultValue: false
     }
   }, {
     sequelize,

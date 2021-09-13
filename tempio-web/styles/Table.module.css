@@ -1,0 +1,83 @@
+.table {
+  height: fit-content;
+  border-spacing: 0px;
+  border-radius: 10px;
+  border: 1px solid #e7e7e9;
+}
+
+.table tbody td{
+  border-top: 1px solid #e7e7e9;
+}
+
+.table th {
+  background-color: #f7f9fa;
+  color: #7b848c;
+}
+
+.table th:first-child {
+  border-top-left-radius: 10px;
+}
+
+.table th:last-child {
+  border-top-right-radius: 10px;
+}
+
+.table th, .table td {
+  text-align: left;
+  padding: 15px;
+  width: 250px;
+}
+
+.table tr th:last-child,
+.table tr td:last-child {
+  width: 80px;
+}
+
+.table tr td:first-child {
+  text-transform: uppercase;
+}
+
+.table__tooltip-container {
+  color: #7b848c;
+}
+
+.table__tooltip {
+  color: #7b848c !important;
+  background-color: #fff !important;
+  border: 1px solid #e7e7e9 !important;
+  padding: 8px 0 !important;
+}
+
+.table__tooltip.place-bottom {
+  margin-top: 0 !important;
+  z-index: 0 !important;
+}
+
+.table__tooltip.place-bottom::after {
+  top: -17px !important;
+  left: 50% !important;
+  margin-left: -8px !important;
+  border-right: 8px solid transparent !important;
+  border-top: 8px solid transparent !important;
+  border-left: 8px solid transparent !important;
+  border-bottom: 8px solid transparent !important;
+}
+
+.table__tooltip a {
+  display: block;
+  width: 120px;
+  text-align: center;
+  padding: 8px 16px;
+  font-size: 15px;
+  pointer-events: auto;
+  cursor: pointer;
+  color: #7b848c;
+}
+
+.table__tooltip a:hover {
+  background-color: #f7f9fa;
+}
+
+.table__tooltip-button {
+  cursor: pointer !important;
+}

@@ -1,6 +1,11 @@
 'use strict'
 
+require('pg').types.setTypeParser(1114, stringValue => {
+  return new Date(stringValue + '+0000')
+})
+
 const Sequelize = require('sequelize')
+
 let sequelize = null
 
 module.exports = function setupDatabase (config) {

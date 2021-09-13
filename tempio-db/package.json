@@ -10,6 +10,7 @@
   "license": "MIT",
   "keywords": [],
   "dependencies": {
+    "date-fns": "^2.27.0",
     "defaults": "^1.0.3",
     "pg": "^8.6.0",
     "pg-hstore": "^2.3.3",
