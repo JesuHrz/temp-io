@@ -10,7 +10,22 @@ module.exports = function setupOrganization (OrganizationModel) {
     return result
   }
 
+  async function findByEmailAndPassword (data) {
+    const oganization = await OrganizationModel.findOne({
+      where: data
+    })
+    let result = null
+
+    if (oganization) {
+      result = oganization.toJSON() || {}
+      delete result.password
+    }
+
+    return result
+  }
+
   return {
-    create
+    create,
+    findByEmailAndPassword
   }
 }

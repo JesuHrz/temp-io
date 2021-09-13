@@ -34,7 +34,8 @@ module.exports = function setupAgent (AgentModel) {
     return AgentModel.findAll({
       where: {
         organizationId
-      }
+      },
+      raw: true
     })
   }
 
